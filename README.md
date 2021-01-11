@@ -43,11 +43,11 @@ https://github.com/xjdm/springcloud_login.git   github项目地址
 
 去掉了一个eureka_8082节点，修改parent项目名为springcloud_login-nacos，修改子工程依赖的父工程，导入到idea
 
-![image-20210110194127400](./img/image-20210110194127400.png)
+![image-20210110194127400](../img/image-20210110194127400.png)
 
 参考架构
 
-![image-20210111130533504](./img/image-20210111121119280.png)
+![image-20210111130533504](../img/image-20210111121119280.png)
 
 ## 2.2 、Eureka注册中心 替换为 Nacos注册中心，发布dubbo服务
 
@@ -144,7 +144,7 @@ dubbo:
 
 ##### 线上nacos 配置如下
 
-![image-20210110195345063](./img/image-20210110195345063.png)
+![image-20210110195345063](../img/image-20210110195345063.png)
 
 ##### 新建idstaa-dubbo-api模块,增加接口IdstaaEmailService
 
@@ -190,13 +190,13 @@ public class IdstaaEmailServiceImpl implements IdstaaEmailService {
 
 启动成功上nacos服务上发现服务正常注册
 
-![image-20210110205237794](./img/image-20210110205237794.png)
+![image-20210110205237794](../img/image-20210110205237794.png)
 
 
 
 进入详情发现dubbo接口也正常注册
 
-![image-20210110205321220](./img/image-20210110205321220.png)
+![image-20210110205321220](../img/image-20210110205321220.png)
 
 至此，email服务改造完毕
 
@@ -277,7 +277,7 @@ private IdstaaEmailService idstaaEmailService;
 
 克隆nacos配置
 
-![image-20210110223517195](./img/image-20210110223517195.png)
+![image-20210110223517195](../img/image-20210110223517195.png)
 
 修改application.yml 名称为bootstrap.yml
 
@@ -539,7 +539,7 @@ mysql 单独放一台服务器
 
 三个应用服务，email，code，user放到一台服务器
 
-![image-20210111114129327](./img/image-20210111114129327.png)
+![image-20210111114129327](../img/image-20210111114129327.png)
 
 ## 3.2 nginx配置
 
@@ -596,7 +596,7 @@ welcome.html
 
 ## 3.3 nacos 配置（application）
 
-![image-20210111114512019](./img/image-20210111114512019.png)
+![image-20210111114512019](../img/image-20210111114512019.png)
 
 
 
@@ -667,9 +667,9 @@ nohup java -Dserver.port=8080 -Dcsp.sentinel.dashboard.server=localhost:8080 -Dp
 
 ## 3.6 生产环境（ucloud）nacos 配置
 
-![image-20210111115314475](./img/image-20210111115314475.png)
+![image-20210111115314475](../img/image-20210111115314475.png)
 
-![image-20210111115436662](./img/image-20210111115436662.png)
+![image-20210111115436662](../img/image-20210111115436662.png)
 
 ```
 spring:
@@ -682,7 +682,7 @@ spring:
 
 # 最终服务架构如下
 
-![image-20210111130533504](./img/image-20210111121119280-1610343269031.png)
+![image-20210111130533504](../img/image-20210111121119280-1610343269031.png)
 
 
 
@@ -694,49 +694,49 @@ https://www.idstaa.com/
 
 登录
 
-![image-20210111121227199](./img/image-20210111121227199.png)
+![image-20210111121227199](../img/image-20210111121227199.png)
 
 注册
 
-![image-20210111121312610](./img/image-20210111121312610.png)
+![image-20210111121312610](../img/image-20210111121312610.png)
 
 登录成功欢迎页
 
-![image-20210111121401188](./img/image-20210111121401188.png)
+![image-20210111121401188](../img/image-20210111121401188.png)
 
 ### 4.2 获取验证码测试
 
-![image-20210111121455599](./img/image-20210111121455599.png)
+![image-20210111121455599](../img/image-20210111121455599.png)
 
 去qq邮箱查看
 
-![image-20210111121521278](./img/image-20210111121521278.png)
+![image-20210111121521278](../img/image-20210111121521278.png)
 
 ### 4.3 限流测试，本次针对访问成功接口做了限流
 
-![image-20210111121731350](./img/image-20210111121731350.png)
+![image-20210111121731350](../img/image-20210111121731350.png)
 
 sentinel 限流配置
 
-![image-20210111121836139](./img/image-20210111121836139.png)
+![image-20210111121836139](../img/image-20210111121836139.png)
 
 每s只能刷新一次。其余等待
 
-![image-20210111121907810](./img/image-20210111121907810.png)
+![image-20210111121907810](../img/image-20210111121907810.png)
 
 进入https://www.idstaa.com/welcome.html 页面，频繁刷新接口，会发现接口处于等待
 
-![image-20210111122018790](./img/image-20210111122018790.png)
+![image-20210111122018790](../img/image-20210111122018790.png)
 
 之后成功返回
 
-![image-20210111122037531](./img/image-20210111122037531.png)
+![image-20210111122037531](../img/image-20210111122037531.png)
 
 也可做其他限流测试，频繁刷新直接报错
 
-![image-20210111122108359](./img/image-20210111122108359.png)
+![image-20210111122108359](../img/image-20210111122108359.png)
 
-![image-20210111122141020](./img/image-20210111122141020.png)
+![image-20210111122141020](../img/image-20210111122141020.png)
 
 从中可以看到sentinel 对网关gateway 的限流成功
 
