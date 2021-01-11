@@ -1,0 +1,34 @@
+server:
+  port: 8081
+spring:
+  profiles:
+     active: dev
+  application:
+    name: idstaa-service-code
+  main:
+      allow-bean-definition-overriding: true
+  jpa:
+    database: MySQL
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  #避免将驼峰命名转换为下划线命名
+      jdbc.time_zone: UTC
+ #Nacos 配置
+  cloud:
+    nacos:
+      discovery:
+        ################ 配置nacos server地址
+        server-addr: nacos.idstaa.com:8848
+        #namespace: d80e4457-1263-4482-8715-0bd7f19836e5
+      config:
+        server-addr: nacos.idstaa.com:8848
+        #namespace: d80e4457-1263-4482-8715-0bd7f19836e5 #命名空间
+        group: DEFAULT_GROUP #默认分组就是DEFAULT_GROUP
+        dataid: idstaa-service-code-${spring.profiles.active}.yaml
+        file-extension: yaml #扩展名
+dubbo:
+  consumer:
+    timeout:  5000
+  cloud:
+    subscribed-services: idstaa-service-email

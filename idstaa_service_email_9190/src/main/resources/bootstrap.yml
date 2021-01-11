@@ -1,0 +1,56 @@
+server:
+  port: 9190
+spring:
+  application:
+    name: idstaa-service-email
+  main:
+      allow-bean-definition-overriding: true
+#  datasource:
+#      driver-class-name: com.mysql.jdbc.Driver
+#      url: jdbc:mysql://localhost:3306/lagou?useUnicode=true&characterEncoding=utf8&serverTimezone=UTC
+#      username: root
+#      password: root
+  jpa:
+    database: MySQL
+    show-sql: true
+    hibernate:
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl  #避免将驼峰命名转换为下划线命名
+      jdbc.time_zone: UTC
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 1121245860@qq.com #发送邮件的邮箱地址
+    password:  iieildpmrzytifaj #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 587 #端口号465或587
+    from: 1121245860@qq.com # 发送邮件的地址，和上面username一致
+    debug: true
+ #Nacos 配置
+  cloud:
+    nacos:
+      discovery:
+        ################ 配置nacos server地址
+        server-addr: nacos.idstaa.com:8848
+        #namespace: d80e4457-1263-4482-8715-0bd7f19836e5
+      config:
+        server-addr: nacos.idstaa.com:8848
+        #namespace: d80e4457-1263-4482-8715-0bd7f19836e5 #命名空间
+        group: DEFAULT_GROUP #默认分组就是DEFAULT_GROUP
+        dataid: idstaa-service-email-${spring.profiles.active}.yaml
+        file-extension: yaml #扩展名
+management:
+    endpoints:
+        web:
+            exposure:
+                include: "*"
+dubbo:
+    scan:
+    # dubbo 服务扫描基准包
+        base-packages: com.idstaa.service.impl
+    protocol:
+        # dubbo 协议
+        name: dubbo
+        # dubbo 协议端⼝（ -1 表示⾃增端⼝，从 20880 开始）
+        port: -1
+    registry:
+    # 挂载到 Spring Cloud 的注册中⼼
+        address: spring-cloud://localhost

@@ -1,0 +1,35 @@
+server:
+  port: 9002
+spring:
+  application:
+     name: idstaa-cloud-gateway
+  cloud:
+    gateway:
+      routes: # 路由可以有多个
+        - id: service-autodeliver-router # 我们自定义的路由 ID，保持唯一
+          uri: http://application.idstaa.com:8081  # 目标服务地址  自动投递微服务（部署多实例）  动态路由：uri配置的应该是一个服务名称，而不应该是一个具体的服务实例的地址
+          #uri: lb://idstaa-service-code                                                                    # gateway网关从服务注册中心获取实例信息然后负载后路由
+          predicates:                                         # 断言：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默 认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）。
+            - Path=/api/code/**
+          filters:
+             - StripPrefix=1 # 可以去掉api之后转发
+        - id: service-resume-router      # 我们自定义的路由 ID，保持唯一
+          #uri: http://127.0.0.1:8081       # 目标服务地址
+          #http:localhost:8081/code/validate/673974833@qq.com/123456
+
+          #http://127.0.0.1:8080/user/1545132
+          uri: http://application.idstaa.com:8080
+          predicates:                                         # 断言：路由条件，Predicate 接受一个输入参数，返回一个布尔值结果。该接口包含多种默 认方法来将 Predicate 组合成其他复杂的逻辑（比如：与，或，非）。
+            - Path=/api/user/**
+          filters:
+            - StripPrefix=1 # 可以去掉api之后转发
+    nacos:
+      discovery:
+        ################ 配置nacos server地址
+        server-addr: nacos.idstaa.com:8848
+        cluster-name: BJ
+    sentinel:
+      transport:
+        dashboard: sentinel.idstaa.com:8080 # sentinel dashboard/console地址
+        port: 8719 # sentinel会在该端⼝启动http server，那么这样的话，控制台定义的⼀些限流等规则才能发送传递过来，
+        #如果8719端⼝被占⽤，那么会依次+1
